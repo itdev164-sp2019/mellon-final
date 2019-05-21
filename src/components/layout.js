@@ -1,16 +1,7 @@
-/**
- * Layout component that queries for data
- * with Gatsby's StaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/static-query/
- */
-
 import React from "react"
-import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
-import "./layout.css"
+import styled, { createGlobalStyle } from "styled-components"
+import Helmet from "react-helmet"
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -25,29 +16,84 @@ const Layout = ({ children }) => (
     `}
     render={data => (
       <>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <div
-          style={{
-            margin: `0 auto`,
-            maxWidth: 960,
-            padding: `0px 1.0875rem 1.45rem`,
-            paddingTop: 0,
-          }}
-        >
-          <main>{children}</main>
-          <footer>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
-          </footer>
-        </div>
+        <Container1>
+          <Helmet
+            title={data.site.siteMetadata.title}
+            meta={[
+              { name: "description", content: "Portfolio" },
+              { name: "keywords", content: "Architect, Site" },
+            ]}
+          />
+          <div>{children}</div>
+          <GlobalStyles />
+        </Container1>
       </>
     )}
   />
 )
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+const GlobalStyles = createGlobalStyle`
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed, 
+  figure, figcaption, footer, header, hgroup, 
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: inherit;
+    vertical-align: baseline;
+  }
+  html, body {
+    /* max-width: 1024px; */
+    width: 100%;
+    margin: 0 auto;
+    font-size: 62.5%;
+    text-align: center;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  section {
+    margin-top: 5rem;
+  }
+  h1 {
+    font-size: 2.4rem;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+`
+const Container1 = styled.div`
+  font-family: "Montserrat", sans-serif;
+`
 
 export default Layout
